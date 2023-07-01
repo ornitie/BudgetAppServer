@@ -6,7 +6,12 @@ const knex = require('knex')(knexConfig.development);
 export const insertBill = async (bill: Bill) => {
     return knex('bill')
       .insert(bill)
-      .catch((error: any) => {
-        console.error(error);
-      });
+      .returning('id');
+}
+
+export const deleteBill = async (id: string) => {
+  return knex('bill')
+    .where('id', id)
+    .del()
+    .returning('id');
 }
