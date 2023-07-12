@@ -15,3 +15,10 @@ export const deleteBill = async (id: string) => {
     .del()
     .returning('id');
 }
+
+export const updateBill = async (bill: Bill) => {
+  return knex('bill')
+    .where('id', bill.id)
+    .update(bill)
+    .returning('id');
+}

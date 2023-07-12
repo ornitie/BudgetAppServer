@@ -22,3 +22,13 @@ export const deleteBill = async (req: Request, res: Response): Promise<void> => 
         res.status(500).json({ error }) 
     });
 };
+
+export const updateBill = async (req: Request, res: Response): Promise<void> => {
+    const bill: Bill = req.body;
+
+    BillRepository.updateBill(bill).then(([ id ]) => {
+        res.status(200).json(id);
+    }).catch((error) => {
+        res.status(500).json({ error }) 
+    });
+};
