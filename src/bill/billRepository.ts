@@ -22,3 +22,9 @@ export const updateBill = async (bill: Bill) => {
     .update(bill)
     .returning('id');
 }
+
+export const getBill = async (id: string) => {
+  return knex.select()
+    .from('bill')
+    .where('id', id);
+}
