@@ -11,9 +11,9 @@ enum BillType {
 }
 
 export class Bill {
-    readonly id: string;
-    readonly amount: number;
-    readonly type: BillType;
+    private id: string;
+    private amount: number;
+    private type: BillType;
 
     constructor(id: string, amount: number, type: BillType){
         this.id = id;
