@@ -1,12 +1,24 @@
 import { Request, Response } from 'express';
 import { Bill } from './bill';
-import { insertBill } from './billRepository';
+import * as BillRepository from './billRepository';
 
 
 export const createBill = async (req: Request, res: Response): Promise<void> => {
-    console.log(req.body)
     const bill: Bill = req.body;
-    const response = await insertBill(bill);
 
-    res.status(200).json(response);
+    BillRepository.insertBill(bill).then(([id]) => {
+        res.status(200).json(id);
+    }).catch((error) => {
+        res.status(500).json({ error }) 
+    });
+};
+
+export const deleteBill = async (req: Request, res: Response): Promise<void> => {
+    const billId: string = req.params.id;
+
+    BillRepository.deleteBill(billId).then(([ id ]) => {
+        res.status(200).json(id);
+    }).catch((error) => {
+        res.status(500).json({ error }) 
+    });
 };
