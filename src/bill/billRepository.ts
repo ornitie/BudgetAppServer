@@ -3,6 +3,8 @@ import { Bill } from "./bill";
 const knexConfig = require('../../knexfile');
 const knex = require('knex')(knexConfig.development);
 
+type billQueryParams = Partial<Bill>;
+
 export const insertBill = async (bill: Bill) => {
     return knex('bill')
       .insert(bill)
@@ -23,8 +25,10 @@ export const updateBill = async (bill: Bill) => {
     .returning('id');
 }
 
-export const getBill = async (id: string) => {
+export const getBill = async (billQueryParams: billQueryParams) => {
   return knex.select()
     .from('bill')
-    .where('id', id);
+    .where({
+      ...billQueryParams,
+    });
 }
